@@ -21,9 +21,9 @@ public class CinemaTickets {
 
 	public static CinemaTickets readCinema() {
 
-		System.out.println("Enter the number os rows:");
+		System.out.println("Enter the number of rows:");
 		int rows = scanner().nextInt();
-		System.out.println("Enter the number os seats in each row:");
+		System.out.println("Enter the number of seats in each row:");
 		int cols = scanner().nextInt();
 
 		return new CinemaTickets(rows, cols);
@@ -83,7 +83,7 @@ public class CinemaTickets {
 	public int selectRow() {
 		System.out.println("Enter a row number:");
 		int rowSelected = scanner().nextInt();
-		System.out.println("Enter seat number in that row:");
+		System.out.println("Enter a seat number in that row:");
 		this.seat = scanner().nextInt();
 
 		return rowSelected;
