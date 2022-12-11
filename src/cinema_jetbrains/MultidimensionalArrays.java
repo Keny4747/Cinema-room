@@ -15,7 +15,7 @@ public class MultidimensionalArrays {
 				twoDimArray[i][j] = 1;
 			}
 		}
-
+System.out.println("first loop");
 		for (int i = 0; i < twoDimArray.length; i++) {
 			for (int j = 0; j < twoDimArray[i].length; j++) {
 				twoDimArray[i][j]++;
