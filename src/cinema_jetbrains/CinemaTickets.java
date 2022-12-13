@@ -52,8 +52,9 @@ public class CinemaTickets {
 
 	}
 
-	public void printSeats(String header) {
+	public void printSeats() {
 
+		String header = makePrintHeader();
 		System.out.println("Cinema:");
 		System.out.println(header);
 		makeAllSeats();
@@ -89,7 +90,7 @@ public class CinemaTickets {
 		return rowSelected;
 	}
 
-	public void array(String header, int selectRow) {
+	public void array( int selectRow) {
 
 		String[][] array = new String[this.rows][this.cols];
 
@@ -102,7 +103,7 @@ public class CinemaTickets {
 		array[selectRow - 1][this.seat - 1] = "B";
 
 		System.out.println("Cinema: ");
-		System.out.println(header);
+		System.out.println(makePrintHeader());
 		for (int i = 0; i < array.length; i++) {
 			for (int j = 0; j < array[i].length; j++) {
 				if (j == 0) {
@@ -115,18 +116,39 @@ public class CinemaTickets {
 		}
 
 	}
+	public int selecMenu() {
+		System.out.println("1. Show the seats:\n"
+				+ "2. Buy a ticket\n"
+				+ "0. Exit");
+		int option = scanner().nextInt();
+		
+		switch (option) {
+		case 1 : printSeats();break;
+		case 2 :System.out.println("Ticket price: $"+calculatePriceTicket(selectRow()));break;
+		case 0 ://TODO:EXIT:;
+		}
+		return option;
+	}
 
 	public static void main(String[] args) {
 
 		CinemaTickets cinema = readCinema();
-		String header = cinema.makePrintHeader();
-
-		cinema.printSeats(header);
+		
+		/*
+		cinema.printSeats();
 		int selectRow = cinema.selectRow();
 		int priceTicket = cinema.calculatePriceTicket(selectRow);
 		System.out.println("Ticket price: $" + priceTicket);
 
-		cinema.array(header, selectRow);
+		cinema.array(selectRow);
+		*/
+		int option=-1;
+		while(option!=0) {
+			
+		option=cinema.selecMenu();
+		}
+		
+		
 	}
 
 }
