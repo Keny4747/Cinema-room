@@ -7,6 +7,7 @@ public class CinemaTickets {
 	private final int cols;
 	private final int seats;
 	private int seat;
+	private int selectedRow=-1;
 
 	public CinemaTickets(int rows, int cols) {
 		this.rows = rows;
@@ -83,14 +84,15 @@ public class CinemaTickets {
 
 	public int selectRow() {
 		System.out.println("Enter a row number:");
-		int rowSelected = scanner().nextInt();
+		this.selectedRow = scanner().nextInt();
 		System.out.println("Enter a seat number in that row:");
 		this.seat = scanner().nextInt();
 
-		return rowSelected;
+		return selectedRow;
 	}
 
-	public void array( int selectRow) {
+	
+	public void array() {
 
 		String[][] array = new String[this.rows][this.cols];
 
@@ -99,21 +101,40 @@ public class CinemaTickets {
 				array[i][j] = "S";
 			}
 		}
+		
+		if(this.selectedRow>=0) {
+			array[selectedRow - 1][this.seat - 1] = "B";
 
-		array[selectRow - 1][this.seat - 1] = "B";
+			System.out.println("Cinema: ");
+			System.out.println(makePrintHeader());
+			for (int i = 0; i < array.length; i++) {
+				for (int j = 0; j < array[i].length; j++) {
+					if (j == 0) {
+						System.out.print(i + 1);
+					}
+					System.out.print(" " + array[i][j]);
 
-		System.out.println("Cinema: ");
-		System.out.println(makePrintHeader());
-		for (int i = 0; i < array.length; i++) {
-			for (int j = 0; j < array[i].length; j++) {
-				if (j == 0) {
-					System.out.print(i + 1);
 				}
-				System.out.print(" " + array[i][j]);
-
+				System.out.println();
 			}
-			System.out.println();
+		}else {
+			
+
+			System.out.println("Cinema: ");
+			System.out.println(makePrintHeader());
+			for (int i = 0; i < array.length; i++) {
+				for (int j = 0; j < array[i].length; j++) {
+					if (j == 0) {
+						System.out.print(i + 1);
+					}
+					System.out.print(" " + array[i][j]);
+
+				}
+				System.out.println();
+			}
 		}
+
+	
 
 	}
 	public int selecMenu() {
@@ -123,9 +144,9 @@ public class CinemaTickets {
 		int option = scanner().nextInt();
 		
 		switch (option) {
-		case 1 : printSeats();break;
+		case 1 : array();break;
 		case 2 :System.out.println("Ticket price: $"+calculatePriceTicket(selectRow()));break;
-		case 0 ://TODO:EXIT:;
+		case 0 :break;
 		}
 		return option;
 	}
