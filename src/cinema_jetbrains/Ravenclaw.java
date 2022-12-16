@@ -4,27 +4,21 @@ import java.util.Scanner;
 
 public class Ravenclaw {
 
+    public static String concatStrings(String str1, String str2) {
+        /* write your code here */
+
+        return str1.concat(str2);
+    }
+
+    /* Do not change code below */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        int a = scanner.nextInt();
-        int b = scanner.nextInt();
-        int c = scanner.nextInt();
-        int d = scanner.nextInt();
-        
-        
-        try {
-        	
-        	int result = a / ((b + c) / d);
+        String str1 = scanner.nextLine();
+        String str2 = scanner.nextLine();
+        str1 = "null".equalsIgnoreCase(str1) ? null : str1;
+        str2 = "null".equalsIgnoreCase(str2) ? null : str2;
 
-            System.out.println(result);
-			
-		} catch (ArithmeticException e) {
-			System.out.println("Division by zero!");
-		}
-
-        
-        
-        scanner.close();
+        System.out.println(concatStrings(str1, str2));
     }
 }
