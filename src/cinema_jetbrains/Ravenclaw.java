@@ -5,7 +5,12 @@ import java.util.Scanner;
 public class Ravenclaw {
 
     public static String concatStrings(String str1, String str2) {
-        /* write your code here */
+
+    	try {
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
         return str1.concat(str2);
     }
