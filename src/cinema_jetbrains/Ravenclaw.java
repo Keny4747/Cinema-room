@@ -5,14 +5,23 @@ import java.util.Scanner;
 public class Ravenclaw {
 
     public static String concatStrings(String str1, String str2) {
+    	//Your task is to fix the method concatStrings. The method should concat two strings and avoid NPE.
 
+//If both of the strings are null, you should return an empty string ("");
+//If only one string is null, you should return the other string.
+
+    	
     	try {
+    		return str1.concat(str2);
+    		
 			
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (NullPointerException e) {
+			return 
+		}finally {
+			return "";
 		}
 
-        return str1.concat(str2);
+        
     }
 
     /* Do not change code below */
