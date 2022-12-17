@@ -31,5 +31,7 @@ public class Ravenclaw {
 		str2 = "null".equalsIgnoreCase(str2) ? null : str2;
 
 		System.out.println(concatStrings(str1, str2));
+		
+		scanner.close();
 	}
 }

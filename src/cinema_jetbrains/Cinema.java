@@ -9,6 +9,8 @@ public class Cinema {
 	private final int seats;
 	private int seat;
 	private int selectedRow = -1;
+	private int countTickets = 0;
+	private int currentIncome = 0;
 
 	private String[][] array;
 
@@ -57,13 +59,28 @@ public class Cinema {
 
 	public int selectRow() {
 
-		System.out.println("Enter a row number:");
-		this.selectedRow = scanner().nextInt();
+		boolean flag;
 
-		System.out.println("Enter a seat number in that row:");
-		this.seat = scanner().nextInt();
+		do {
 
+			System.out.println("Enter a row number:");
+			this.selectedRow = scanner().nextInt();
+
+			System.out.println("Enter a seat number in that row:");
+			this.seat = scanner().nextInt();
+
+			flag = searchSeatsAvaliable(selectedRow);
+
+			if (flag == true) {
+				System.out.println("That ticket has already been purchased!");
+			} else {
+				array();
+				this.countTickets++;
+			}
+
+		} while (flag == true);
 		return selectedRow;
+
 	}
 
 	public void initArray() {
@@ -92,31 +109,62 @@ public class Cinema {
 
 	}
 
-	public void array() {
+	public boolean searchSeatsAvaliable(int rowSelected) {
 
-		if (this.selectedRow >= 0) {
-
-			this.array[selectedRow - 1][this.seat - 1] = "B";
-			printSeats();
-
-		} else {
-			printSeats();
+		boolean flag = false;
+		for (int i = 0; i < this.array.length; i++) {
+			for (int j = 0; j < this.array[i].length; j++) {
+				if (array[rowSelected - 1][this.seat - 1].equals("B")) {
+					flag = true;
+					break;
+				}
+			}
 		}
 
+		return flag;
+	}
+
+	public void array() {
+
+		this.array[selectedRow - 1][this.seat - 1] = "B";
+	}
+
+	public int incomefrontAndBackSpace() {
+		int front = Math.round(rows / 2);
+		int back = rows - front;
+		return ((front * cols) * 10) + ((back * cols) * 8);
+	}
+
+	public int totalIncome() {
+
+		return seats < 60 ? (seats * 10) : incomefrontAndBackSpace();
+	}
+
+	public void statics() {
+
+		System.out.printf("Number of purchased tickets: %d%n", this.countTickets);
+		System.out.printf("Percentage: %f%n", (seats * (this.countTickets * 0.1)));
+		System.out.printf("Current income: $%d%n", this.currentIncome);
+		System.out.printf("Total income: $%d%n", totalIncome());
 	}
 
 	public int selecMenu() {
 
-		System.out.println("1. Show the seats:\n" + "2. Buy a ticket\n" + "0. Exit");
+		System.out.println("1. Show the seats\n2. Buy a ticket\n3. Statistic\n0. Exit");
 
 		int option = scanner().nextInt();
 
 		switch (option) {
 		case 1:
-			array();
+			printSeats();
 			break;
 		case 2:
-			System.out.println("Ticket price: $" + calculatePriceTicket(selectRow()));
+			int price = calculatePriceTicket(selectRow());
+			currentIncome += price;
+			System.out.printf("Ticket price: $%d", price);
+			break;
+		case 3:
+			statics();
 			break;
 		case 0:
 			break;
@@ -124,7 +172,6 @@ public class Cinema {
 		return option;
 	}
 
-	
 	public static void main(String[] args) {
 
 		Cinema cinema = readCinema();
