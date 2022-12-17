@@ -95,23 +95,24 @@ public class Cinema {
 	public int validateInput() {
 		
 		boolean flag;
-		int selectRow=-1;
+		
 		
 		do{
 			
 			try {
 				
-				selectRow=selectRow();
+				selectedRow=selectRow();
 				flag=false;
 			} catch (ArrayIndexOutOfBoundsException e) {
 				
 				flag = true;
 				System.out.printf("Wrong input!%n");
-				selectRow= selectRow();		
+						
 			}
+			
 		}while(flag==true);
 		
-		return selectRow;
+		return selectedRow;
 	}
 	public void initArray() {
 
@@ -184,7 +185,7 @@ public class Cinema {
 	public void statics() {
 
 		System.out.printf("%nNumber of purchased tickets: %d%n", this.countTickets);
-		System.out.printf(Locale.US,"Percentage: %.2f%%%n", (seats * (this.countTickets * 0.01)));
+		System.out.printf(Locale.US,"Percentage: %.2f%%%n", ((this.countTickets * 100.0)/seats));
 		System.out.printf("Current income: $%d%n", this.currentIncome);
 		System.out.printf("Total income: $%d%n%n", totalIncome());
 	}
