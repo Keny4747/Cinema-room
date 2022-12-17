@@ -191,7 +191,7 @@ public class Cinema {
 
 	public int selecMenu() {
 
-		System.out.println("1. Show the seats\n2. Buy a ticket\n3. Statistic\n0. Exit");
+		System.out.println("1. Show the seats\n2. Buy a ticket\n3. Statistics\n0. Exit");
 
 		int option = scanner().nextInt();
 
