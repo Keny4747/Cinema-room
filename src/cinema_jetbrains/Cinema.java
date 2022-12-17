@@ -1,5 +1,6 @@
 package cinema_jetbrains;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Cinema {
@@ -7,14 +8,20 @@ public class Cinema {
 	private final int rows;
 	private final int cols;
 	private final int seats;
+
+	// user preferences:
 	private int seat;
 	private int selectedRow = -1;
+
+	// statics:
 	private int countTickets = 0;
 	private int currentIncome = 0;
 
+	// Array of seats:
 	private String[][] array;
 
 	public Cinema(int rows, int cols) {
+
 		this.rows = rows;
 		this.cols = cols;
 		this.seats = this.cols * this.rows;
@@ -54,13 +61,13 @@ public class Cinema {
 	public int calculatePriceTicket(int rowSelected) {
 
 		return this.seats < 60 ? 10 : rowSelected <= Math.round(rows / 2) ? 10 : 8;
-
 	}
 
 	public int selectRow() {
 
 		boolean flag;
 
+		
 		do {
 
 			System.out.println("Enter a row number:");
@@ -72,21 +79,46 @@ public class Cinema {
 			flag = searchSeatsAvaliable(selectedRow);
 
 			if (flag == true) {
+
 				System.out.println("That ticket has already been purchased!");
 			} else {
+
 				array();
 				this.countTickets++;
 			}
-
+			
 		} while (flag == true);
-		return selectedRow;
 
+		return selectedRow;
 	}
 
+	public int validateInput() {
+		
+		boolean flag;
+		int selectRow=-1;
+		
+		do{
+			
+			try {
+				
+				selectRow=selectRow();
+				flag=false;
+			} catch (ArrayIndexOutOfBoundsException e) {
+				
+				flag = true;
+				System.out.printf("Wrong input!%n");
+				selectRow= selectRow();		
+			}
+		}while(flag==true);
+		
+		return selectRow;
+	}
 	public void initArray() {
 
 		for (int i = 0; i < this.array.length; i++) {
+			
 			for (int j = 0; j < this.array[i].length; j++) {
+				
 				this.array[i][j] = "S";
 			}
 		}
@@ -96,24 +128,31 @@ public class Cinema {
 
 		System.out.println("Cinema: ");
 		System.out.println(makePrintHeader());
+
 		for (int i = 0; i < array.length; i++) {
+
 			for (int j = 0; j < array[i].length; j++) {
+
 				if (j == 0) {
+
 					System.out.print(i + 1);
 				}
-				System.out.print(" " + array[i][j]);
 
+				System.out.print(" " + array[i][j]);
 			}
+
 			System.out.println();
 		}
-
 	}
 
 	public boolean searchSeatsAvaliable(int rowSelected) {
 
 		boolean flag = false;
+		
 		for (int i = 0; i < this.array.length; i++) {
+			
 			for (int j = 0; j < this.array[i].length; j++) {
+				
 				if (array[rowSelected - 1][this.seat - 1].equals("B")) {
 					flag = true;
 					break;
@@ -130,8 +169,10 @@ public class Cinema {
 	}
 
 	public int incomefrontAndBackSpace() {
+
 		int front = Math.round(rows / 2);
 		int back = rows - front;
+
 		return ((front * cols) * 10) + ((back * cols) * 8);
 	}
 
@@ -142,10 +183,10 @@ public class Cinema {
 
 	public void statics() {
 
-		System.out.printf("Number of purchased tickets: %d%n", this.countTickets);
-		System.out.printf("Percentage: %f%n", (seats * (this.countTickets * 0.1)));
+		System.out.printf("%nNumber of purchased tickets: %d%n", this.countTickets);
+		System.out.printf(Locale.US,"Percentage: %.2f%%%n", (seats * (this.countTickets * 0.01)));
 		System.out.printf("Current income: $%d%n", this.currentIncome);
-		System.out.printf("Total income: $%d%n", totalIncome());
+		System.out.printf("Total income: $%d%n%n", totalIncome());
 	}
 
 	public int selecMenu() {
@@ -159,9 +200,9 @@ public class Cinema {
 			printSeats();
 			break;
 		case 2:
-			int price = calculatePriceTicket(selectRow());
+			int price = calculatePriceTicket(validateInput());
 			currentIncome += price;
-			System.out.printf("Ticket price: $%d", price);
+			System.out.printf("%nTicket price: $%d%n%n", price);
 			break;
 		case 3:
 			statics();
@@ -169,6 +210,7 @@ public class Cinema {
 		case 0:
 			break;
 		}
+
 		return option;
 	}
 
@@ -181,9 +223,7 @@ public class Cinema {
 		while (option != 0) {
 
 			option = cinema.selecMenu();
-
 		}
-
 	}
 
 }
