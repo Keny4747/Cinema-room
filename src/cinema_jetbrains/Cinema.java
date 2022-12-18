@@ -20,6 +20,8 @@ public class Cinema {
 	// Array of seats:
 	private String[][] array;
 
+	
+	//Constructor
 	public Cinema(int rows, int cols) {
 
 		this.rows = rows;
